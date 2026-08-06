@@ -47,3 +47,6 @@ next-env.d.ts
 .env*.local
 .env
 !.env.example
+
+# data backups from reset-data.mjs
+backups/
