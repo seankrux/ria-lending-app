@@ -302,7 +302,7 @@ try {
     detailBody.includes("Payor's signature") &&
     detailBody.includes("recorded this payment"));
 
-  await page.getByRole("button", { name: "✏️ Edit details" }).click();
+  await page.getByRole("button", { name: "Edit details" }).click();
   const noteInputs = page.locator("div.rounded-xl.border-emerald-300 input");
   await noteInputs.last().fill("edited by smoke test");
   await page.getByRole("button", { name: "Save changes" }).click();
