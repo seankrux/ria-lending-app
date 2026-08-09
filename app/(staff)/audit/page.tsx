@@ -3,7 +3,7 @@ import { requireOwner } from "@/lib/auth/staff";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { PageHeader } from "@/components/staff/PageHeader";
 
-export const metadata = { title: "Audit Log — RIA Lending" };
+export const metadata = { title: "Audit Log — DG Lending" };
 
 const ACTION_LABELS: Record<string, string> = {
   "loan.create": "created a loan",

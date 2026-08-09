@@ -5,7 +5,7 @@ import { isOwnerUp } from "@/lib/auth/roles";
 import { updateCompanySettings } from "@/lib/actions/settings";
 import { listStaffAccounts } from "@/lib/actions/staff";
 
-export const metadata = { title: "Settings — RIA Lending" };
+export const metadata = { title: "Settings — DG Lending" };
 
 const inputCls = "field-input";
 const labelCls = "field-label";

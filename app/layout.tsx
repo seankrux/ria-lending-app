@@ -28,7 +28,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RIA Lending",
+  title: "DG Lending",
   description:
     "Loan management for Philippine lending companies — calculator, agreements, and loan monitoring.",
 };

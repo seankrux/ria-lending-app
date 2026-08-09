@@ -1,4 +1,4 @@
-/* Seeds a realistic sample dataset for demoing RIA Lending. Run AFTER
+/* Seeds a realistic sample dataset for demoing DG Lending. Run AFTER
  * scripts/reset-data.mjs. Uses existing staff accounts (owner + collector).
  *   set -a && source .env.local && set +a && node scripts/seed-sample.mjs
  * Portal demo login -> phone: 0917 000 1001, code: 123456

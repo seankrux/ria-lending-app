@@ -14,7 +14,7 @@ import { LoanWorkflowPanel } from "@/components/staff/LoanWorkflowPanel";
 import { isManagerUp } from "@/lib/auth/roles";
 import { statusBadgeClass, statusLabel } from "@/lib/ui/status";
 
-export const metadata = { title: "Loan — RIA Lending" };
+export const metadata = { title: "Loan — DG Lending" };
 
 const METHOD_LABELS: Record<string, string> = {
   flat_addon: "Monthly flat / add-on",

@@ -1,4 +1,4 @@
-# RIA Lending App
+# DG Lending App
 
 Loan management for Philippine lending companies. Built with **Next.js (App Router)**, **Supabase** (Postgres + Auth + RLS), and deployed on **Vercel**.
 

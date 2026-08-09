@@ -1,11 +1,11 @@
-/* Live smoke test for RIA Lending. Creates clearly-marked TEST data, exercises
+/* Live smoke test for DG Lending. Creates clearly-marked TEST data, exercises
  * every flow (routes, staff UI, loan+payment RPCs, PDF, debtor portal), then
  * deletes everything it created. */
 import { createClient } from "@supabase/supabase-js";
 import bcrypt from "bcryptjs";
 import { chromium } from "playwright";
 
-const BASE = "https://rialending.dgtechsolutions.online";
+const BASE = "https://dglending.dgtechsolutions.online";
 const SUPA_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SK = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const admin = createClient(SUPA_URL, SK, { auth: { persistSession: false } });

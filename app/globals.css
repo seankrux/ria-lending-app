@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   RIA Lending — design tokens
+   DG Lending — design tokens
    Brand: deep "narra" green (trust, money, growth) on a cool neutral ink ramp.
    The ink ramp intentionally matches Tailwind's slate values so screens that
    still use slate-* utilities stay visually consistent with tokenised ones.

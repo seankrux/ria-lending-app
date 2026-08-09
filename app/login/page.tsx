@@ -39,7 +39,7 @@ export default function LoginPage() {
             ₱
           </span>
           <span className="font-display text-lg font-bold tracking-tight">
-            RIA Lending
+            DG Lending
           </span>
         </Link>
 

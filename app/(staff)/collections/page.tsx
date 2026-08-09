@@ -7,7 +7,7 @@ import { VoidPaymentButton } from "@/components/staff/OwnerActions";
 import { PageHeader } from "@/components/staff/PageHeader";
 import { applySort, SortHeader } from "@/components/staff/SortHeader";
 
-export const metadata = { title: "Collections — RIA Lending" };
+export const metadata = { title: "Collections — DG Lending" };
 
 export default async function CollectionsPage({
   searchParams,

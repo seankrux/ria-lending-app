@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/staff/PageHeader";
 import { createBorrower } from "@/lib/actions/borrowers";
 import { BorrowerFields } from "@/components/staff/BorrowerFields";
 
-export const metadata = { title: "Add Borrower — RIA Lending" };
+export const metadata = { title: "Add Borrower — DG Lending" };
 
 export default function NewBorrowerPage() {
   return (

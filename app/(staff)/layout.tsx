@@ -28,7 +28,7 @@ export default async function StaffLayout({
             ₱
           </span>
           <span className="font-display text-lg font-bold leading-tight tracking-tight text-white">
-            RIA Lending
+            DG Lending
           </span>
         </div>
 
@@ -75,7 +75,7 @@ export default async function StaffLayout({
                 ₱
               </span>
               <span className="font-display text-base font-bold tracking-tight">
-                RIA Lending
+                DG Lending
               </span>
             </span>
             <SignOutButton />

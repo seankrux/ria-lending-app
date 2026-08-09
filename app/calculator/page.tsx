@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CalculatorForm } from "@/components/calculator/CalculatorForm";
 
-export const metadata = { title: "Loan Calculator — RIA Lending" };
+export const metadata = { title: "Loan Calculator — DG Lending" };
 
 export default function CalculatorPage() {
   return (
@@ -13,7 +13,7 @@ export default function CalculatorPage() {
               ₱
             </span>
             <span className="font-display text-base font-bold tracking-tight">
-              RIA Lending
+              DG Lending
             </span>
           </Link>
           <Link

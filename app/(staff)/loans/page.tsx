@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/staff/PageHeader";
 import { applySort, SortHeader } from "@/components/staff/SortHeader";
 import { statusBadgeClass, statusLabel } from "@/lib/ui/status";
 
-export const metadata = { title: "Loans — RIA Lending" };
+export const metadata = { title: "Loans — DG Lending" };
 
 const STATUS_TABS = [
   { key: "all", label: "All" },

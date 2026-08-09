@@ -11,7 +11,7 @@ import {
   ProgressRing,
 } from "@/components/staff/DashboardCharts";
 
-export const metadata = { title: "Dashboard — RIA Lending" };
+export const metadata = { title: "Dashboard — DG Lending" };
 
 type DueRow = {
   id: string;

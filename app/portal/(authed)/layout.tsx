@@ -19,7 +19,7 @@ export default async function PortalLayout({
               ₱
             </span>
             <span className="font-display text-base font-bold leading-tight tracking-tight">
-              RIA Lending
+              DG Lending
               <span className="block text-sm font-normal text-brand-200/70">
                 My loans
               </span>

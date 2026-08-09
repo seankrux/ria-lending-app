@@ -10,7 +10,7 @@ export async function updateCompanySettings(formData: FormData): Promise<void> {
   const { error } = await supabase
     .from("company_settings")
     .update({
-      company_name: String(formData.get("company_name") ?? "").trim() || "RIA Lending",
+      company_name: String(formData.get("company_name") ?? "").trim() || "DG Lending",
       address: String(formData.get("address") ?? "").trim() || null,
       contact_number: String(formData.get("contact_number") ?? "").trim() || null,
       tin: String(formData.get("tin") ?? "").trim() || null,

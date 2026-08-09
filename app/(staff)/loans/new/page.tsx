@@ -3,7 +3,7 @@ import { requireStaff } from "@/lib/auth/staff";
 import { isManagerUp } from "@/lib/auth/roles";
 import { NewLoanForm } from "@/components/staff/NewLoanForm";
 
-export const metadata = { title: "New Loan — RIA Lending" };
+export const metadata = { title: "New Loan — DG Lending" };
 
 export default async function NewLoanPage({
   searchParams,

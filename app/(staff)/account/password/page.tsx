@@ -2,7 +2,7 @@ import { requireStaff } from "@/lib/auth/staff";
 import { PageHeader } from "@/components/staff/PageHeader";
 import { ChangePasswordForm } from "@/components/staff/ChangePasswordForm";
 
-export const metadata = { title: "Change Password — RIA Lending" };
+export const metadata = { title: "Change Password — DG Lending" };
 
 export default async function ChangePasswordPage() {
   const { user } = await requireStaff();

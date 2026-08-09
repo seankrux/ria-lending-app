@@ -4,7 +4,7 @@ import { getDebtorOverview } from "@/lib/data/debtor-queries";
 import { formatPeso } from "@/lib/interest/money";
 import { formatLongDate, todayInManila } from "@/lib/tz";
 
-export const metadata = { title: "My Loans — RIA Lending" };
+export const metadata = { title: "My Loans — DG Lending" };
 
 export default async function PortalHome() {
   const borrowerId = await getDebtorSession();

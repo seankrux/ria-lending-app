@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/staff/PageHeader";
 import { PaymentEditForm } from "@/components/staff/PaymentEditForm";
 import { VoidPaymentButton } from "@/components/staff/OwnerActions";
 
-export const metadata = { title: "Payment — RIA Lending" };
+export const metadata = { title: "Payment — DG Lending" };
 
 export default async function PaymentPage({
   params,

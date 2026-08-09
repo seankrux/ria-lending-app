@@ -9,7 +9,7 @@ import {
 } from "@/components/staff/RemitControls";
 import { statusBadgeClass } from "@/lib/ui/status";
 
-export const metadata = { title: "Remittances — RIA Lending" };
+export const metadata = { title: "Remittances — DG Lending" };
 
 type Row = {
   collectorId: string;

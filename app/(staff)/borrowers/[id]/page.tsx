@@ -6,7 +6,7 @@ import { formatPeso } from "@/lib/interest/money";
 import { AccessCodePanel } from "@/components/staff/AccessCodePanel";
 import { statusBadgeClass, statusLabel } from "@/lib/ui/status";
 
-export const metadata = { title: "Borrower — RIA Lending" };
+export const metadata = { title: "Borrower — DG Lending" };
 
 export default async function BorrowerPage({
   params,

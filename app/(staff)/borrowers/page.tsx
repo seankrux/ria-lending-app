@@ -3,7 +3,7 @@ import { requireStaff } from "@/lib/auth/staff";
 import { formatPeso } from "@/lib/interest/money";
 import { PageHeader } from "@/components/staff/PageHeader";
 
-export const metadata = { title: "Borrowers — RIA Lending" };
+export const metadata = { title: "Borrowers — DG Lending" };
 
 export default async function BorrowersPage({
   searchParams,
