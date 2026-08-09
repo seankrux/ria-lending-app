@@ -94,8 +94,20 @@ export default function Home() {
         </ul>
       </main>
 
-      <footer className="mx-auto w-full max-w-5xl px-5 pb-8 text-sm text-brand-200/50">
-        For lenders, collectors, and borrowers.
+      <footer className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-2 px-5 pb-8 text-sm text-brand-200/50">
+        <span>For lenders, collectors, and borrowers.</span>
+        <span>
+          Made by{" "}
+          <a
+            href="https://dgtechsolutions.online"
+            target="_blank"
+            rel="noopener"
+            className="font-medium text-brand-200/80 underline-offset-2 hover:text-white hover:underline"
+          >
+            DG Tech Solutions
+          </a>{" "}
+          · 2026
+        </span>
       </footer>
     </div>
   );
