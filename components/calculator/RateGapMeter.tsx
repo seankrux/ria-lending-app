@@ -22,6 +22,11 @@ export function RateGapMeter({
   const max = Math.max(quotedMonthlyRatePct, effectiveMonthlyRatePct);
   if (!Number.isFinite(max) || max <= 0) return null;
 
+  // On genuinely extreme terms the quoted rate is a rounding error next to the
+  // real one, and a bar scaled honestly to ~0% reads as a rendering fault
+  // rather than as the point being made. Keep a visible stub.
+  const scale = (pct: number) => Math.max(2, (pct / max) * 100);
+
   return (
     <div className="border-t border-line px-5 py-4">
       <p className="eyebrow mb-3 text-ink-500">
@@ -30,14 +35,14 @@ export function RateGapMeter({
       <Bar
         label="Quoted"
         value={formatRatePct(quotedMonthlyRatePct)}
-        widthPct={(quotedMonthlyRatePct / max) * 100}
+        widthPct={scale(quotedMonthlyRatePct)}
         fill="bg-ink-300"
         delayMs={0}
       />
       <Bar
         label="Actual"
         value={formatRatePct(effectiveMonthlyRatePct)}
-        widthPct={(effectiveMonthlyRatePct / max) * 100}
+        widthPct={scale(effectiveMonthlyRatePct)}
         fill="bg-brand-700"
         delayMs={140}
       />

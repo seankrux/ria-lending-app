@@ -33,8 +33,24 @@ export type DisclosureFigures = {
 
 /** Absolute tolerance on the daily rate, and the bracket we search within. */
 const TOLERANCE = 1e-12;
-const MAX_DAILY_RATE = 1; // 100%/day — far beyond any real loan
+/**
+ * 1000%/day. Deliberately absurd: the loans this disclosure exists to expose are
+ * the extreme ones, so the bracket has to cover them. A ₱1,000 loan repaid as
+ * ₱11,000 over a week needs ~230%/day, and a tighter bracket would report the
+ * single most predatory case as "could not be computed" — the worst possible
+ * failure mode for this feature.
+ */
+const MAX_DAILY_RATE = 10;
 const MAX_ITERATIONS = 200;
+
+/**
+ * Compounding a large daily rate over a year overflows into figures like
+ * 5.7e+69%, which are arithmetically correct and completely unreadable. Past
+ * this ceiling the exact digits carry no meaning a borrower can use, so the
+ * disclosure reports "over 1,000,000%" and leans on the simple APR — which
+ * stays finite — as the comparable number.
+ */
+export const RATE_DISPLAY_CEILING_PCT = 1_000_000;
 
 /**
  * Net present value of the loan's cash flows at a given daily rate.
@@ -131,11 +147,16 @@ export function computeDisclosure(
 }
 
 /**
- * Rates on informal PH lending routinely run into the thousands of percent
- * once annualised, where "4820.55%" is noise. Round hard above 100%.
+ * Rates on informal PH lending routinely run into the thousands of percent once
+ * annualised, where "4820.55%" is noise. Round hard above 100%, and stop
+ * reporting exact digits entirely past the display ceiling — see
+ * RATE_DISPLAY_CEILING_PCT.
  */
 export function formatRatePct(pct: number): string {
   if (!Number.isFinite(pct)) return "—";
+  if (pct >= RATE_DISPLAY_CEILING_PCT) {
+    return `over ${RATE_DISPLAY_CEILING_PCT.toLocaleString("en-PH")}%`;
+  }
   if (pct >= 1000) return `${Math.round(pct).toLocaleString("en-PH")}%`;
   if (pct >= 100) return `${pct.toFixed(0)}%`;
   return `${pct.toFixed(2)}%`;

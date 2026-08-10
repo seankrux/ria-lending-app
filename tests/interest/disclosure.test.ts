@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { computeSchedule } from "@/lib/interest/engine";
-import { computeDisclosure, formatRatePct } from "@/lib/interest/disclosure";
+import {
+  computeDisclosure,
+  formatRatePct,
+  RATE_DISPLAY_CEILING_PCT,
+} from "@/lib/interest/disclosure";
 
 describe("computeDisclosure", () => {
   it("reports the amount financed net of the processing fee", () => {
@@ -90,10 +94,59 @@ describe("computeDisclosure", () => {
   });
 });
 
+  it("resolves a rate on the most predatory terms rather than giving up", () => {
+    // Borrow ₱1,000, repay ₱11,000 over a week. This needs a daily rate far
+    // above any plausible loan, and it is exactly the case the disclosure
+    // exists to expose — reporting it as indeterminate would be the worst
+    // possible failure.
+    const schedule = computeSchedule({
+      method: "one_time_fixed",
+      principal: 100_000,
+      fixedInterest: 1_000_000,
+      frequency: "daily",
+      termPeriods: 7,
+      releaseDate: "2026-08-08",
+    });
+    const d = computeDisclosure(schedule, "2026-08-08");
+
+    expect(d.indeterminate).toBe(false);
+    expect(d.effectiveMonthlyRatePct).toBeGreaterThan(100);
+    expect(Number.isFinite(d.nominalAnnualRatePct)).toBe(true);
+  });
+
+  it("treats payments dated before release as indeterminate", () => {
+    // The calculator lets any first due date be picked. A payment landing
+    // before the cash is released has no meaningful rate, and discounting it
+    // would inflate rather than discount — the solver must decline, not guess.
+    const schedule = computeSchedule({
+      method: "flat_addon",
+      principal: 1_000_000,
+      ratePerMonthBps: 500,
+      frequency: "monthly",
+      termPeriods: 6,
+      releaseDate: "2026-08-08",
+      firstDueDate: "2026-01-08",
+    });
+    const d = computeDisclosure(schedule, "2026-08-08");
+
+    expect(d.indeterminate).toBe(true);
+    // The money figures stay meaningful even when the rate cannot be solved.
+    expect(d.financeCharge).toBe(300_000);
+  });
+
 describe("formatRatePct", () => {
   it("keeps two decimals under 100% and drops them above", () => {
     expect(formatRatePct(12.345)).toBe("12.35%");
     expect(formatRatePct(240.6)).toBe("241%");
     expect(formatRatePct(4820.55)).toBe("4,821%");
+  });
+
+  it("stops quoting exact digits past the display ceiling", () => {
+    // Compounding an extreme daily rate over a year yields figures like
+    // 5.7e+69%, which are correct and useless. Anything past the ceiling is
+    // reported as a bound instead of a number.
+    expect(formatRatePct(5.7e69)).toBe("over 1,000,000%");
+    expect(formatRatePct(RATE_DISPLAY_CEILING_PCT)).toBe("over 1,000,000%");
+    expect(formatRatePct(RATE_DISPLAY_CEILING_PCT - 1)).toBe("999,999%");
   });
 });

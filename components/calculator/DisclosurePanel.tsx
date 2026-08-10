@@ -20,7 +20,17 @@ export function DisclosurePanel({
   quotedMonthlyRatePct: number;
 }) {
   const understated =
+    !disclosure.indeterminate &&
     disclosure.effectiveMonthlyRatePct > quotedMonthlyRatePct + 0.01;
+
+  /*
+   * When the solver cannot resolve a rate its numeric fields are zero, and
+   * printing "0.00%" beside "the effective rate could not be computed" would be
+   * both contradictory and the single most misleading value to show a borrower.
+   * The money figures above stay valid either way, so only the rates blank out.
+   */
+  const rate = (pct: number) =>
+    disclosure.indeterminate ? "—" : formatRatePct(pct);
 
   return (
     <section
@@ -55,19 +65,19 @@ export function DisclosurePanel({
         <Row
           term="Effective interest rate — per month"
           detail="The real cost of the money you are still holding"
-          value={formatRatePct(disclosure.effectiveMonthlyRatePct)}
+          value={rate(disclosure.effectiveMonthlyRatePct)}
           emphasis
         />
         <Row
           term="Effective interest rate — per year"
           detail="Compounded, for comparison against any other lender"
-          value={formatRatePct(disclosure.effectiveAnnualRatePct)}
+          value={rate(disclosure.effectiveAnnualRatePct)}
           emphasis
         />
         <Row
           term="Simple annual rate (APR)"
           detail="Uncompounded, the convention used on most loan adverts"
-          value={formatRatePct(disclosure.nominalAnnualRatePct)}
+          value={rate(disclosure.nominalAnnualRatePct)}
         />
       </dl>
 
@@ -110,8 +120,11 @@ function Row({
   value: string;
   emphasis?: boolean;
 }) {
+  // Stacked on narrow screens: a long term against a long value ("over
+  // 1,000,000%") squeezes both into a handful of characters per line when they
+  // sit side by side on a phone. Side-by-side returns once there is room.
   return (
-    <div className="flex items-baseline justify-between gap-4 px-5 py-3">
+    <div className="flex flex-col gap-1 px-5 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
       <dt>
         <span
           className={emphasis ? "font-semibold text-ink-900" : "text-ink-800"}
@@ -121,7 +134,7 @@ function Row({
         <span className="mt-0.5 block text-sm text-ink-600">{detail}</span>
       </dt>
       <dd
-        className={`shrink-0 tabular-nums ${
+        className={`shrink-0 tabular-nums sm:text-right ${
           emphasis
             ? "font-display text-xl font-bold text-ink-900"
             : "text-lg font-semibold text-ink-800"
