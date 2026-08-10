@@ -11,6 +11,8 @@ import type {
 } from "@/lib/interest/types";
 import { todayInManila } from "@/lib/tz";
 import { ScheduleTable } from "./ScheduleTable";
+import { computeDisclosure } from "@/lib/interest/disclosure";
+import { DisclosurePanel } from "./DisclosurePanel";
 
 const METHOD_LABELS: Record<InterestMethod, string> = {
   flat_addon: "Monthly flat / add-on",
@@ -115,13 +117,27 @@ export function CalculatorForm({
     ...initial,
   });
 
-  const { terms, result, error } = useMemo(() => {
+  const { terms, result, disclosure, error } = useMemo(() => {
     const terms = stateToTerms(s);
-    if (!terms) return { terms: null, result: null, error: null };
+    if (!terms)
+      return { terms: null, result: null, disclosure: null, error: null };
     try {
-      return { terms, result: computeSchedule(terms), error: null };
+      const result = computeSchedule(terms);
+      return {
+        terms,
+        result,
+        // Solving the IRR is a bisection loop — keep it inside the memo rather
+        // than recomputing it on every render.
+        disclosure: computeDisclosure(result, terms.releaseDate),
+        error: null,
+      };
     } catch (e) {
-      return { terms: null, result: null, error: (e as Error).message };
+      return {
+        terms: null,
+        result: null,
+        disclosure: null,
+        error: (e as Error).message,
+      };
     }
   }, [s]);
 
@@ -297,10 +313,16 @@ export function CalculatorForm({
             <SummaryCard
               label="Per payment"
               value={formatPeso(result.perPaymentAmount)}
-              hint={`≈ ${result.effectiveMonthlyRatePct.toFixed(2)}%/mo effective`}
+              hint={`${result.effectiveMonthlyRatePct.toFixed(2)}%/mo quoted`}
               emphasis
             />
           </div>
+          {disclosure && (
+            <DisclosurePanel
+              disclosure={disclosure}
+              quotedMonthlyRatePct={result.effectiveMonthlyRatePct}
+            />
+          )}
           {showSchedule && (
             <section>
               <h2 className="eyebrow mb-2 text-ink-500">Payment schedule</h2>

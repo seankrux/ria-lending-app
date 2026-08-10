@@ -646,6 +646,24 @@
   animation-delay: var(--rise-delay, 0ms);
 }
 
+/* Bars grow from their leading edge. Transform-only, so a growing bar costs no
+   layout pass; the final width is set inline and the animation only scales
+   toward it. */
+@keyframes ria-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-grow-x {
+  transform-origin: left center;
+  animation: ria-grow-x 700ms var(--ease-soft) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
