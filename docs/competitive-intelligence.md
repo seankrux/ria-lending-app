@@ -51,7 +51,7 @@ Ranked by competitive cost. None are closed on this branch — recorded for plan
 | 2   | **Collateral tracking**                            | Medium                 | Common in PH lending (ATM cards, land titles, OR/CR).                                                             |
 | 3   | **Savings & investor accounts**                    | Medium                 | Loandisk has both. Expands the buyer from lender to cooperative.                                                  |
 | 4   | **Multi-branch**                                   | Medium                 | Blocks the multi-location operator entirely.                                                                      |
-| 5   | **Cash flow / P&L statements**                     | Medium                 | DG Lending has operational analytics but no financial statements.                                                        |
+| 5   | **Cash flow / P&L statements**                     | Medium                 | DG Lending has operational analytics but no financial statements.                                                 |
 | 6   | **SEC registration + CoA display**                 | Low effort, compliance | SEC requires the registration number and Certificate of Authority on all platforms and adverts. Currently absent. |
 
 ## The wedge — RA 3765 disclosure

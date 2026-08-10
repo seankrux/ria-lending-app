@@ -88,15 +88,24 @@ export function DisclosurePanel({
         />
       )}
 
+      {/*
+        This fires on every method, not just add-on, so the wording has to stay
+        method-agnostic. An earlier version said the quoted rate was "charged on
+        the original amount for the whole term" — true of add-on, and precisely
+        false on a diminishing-balance loan, which charges only on the balance
+        still outstanding. What is true in every case is that the quoted figure
+        averages total interest over the original principal, while the effective
+        rate prices repayment timing and any up-front fee.
+      */}
       {understated && (
         <p className="surface-warn rounded-none border-x-0 border-b-0 px-5 py-3 text-sm">
           <span className="font-semibold">
             Why is this higher than the quoted rate?
           </span>{" "}
-          The quoted {formatRatePct(quotedMonthlyRatePct)} per month is charged
-          on the <em>original</em> amount for the whole term, but the balance
-          shrinks with every payment. The effective rate prices what is actually
-          still owed.
+          The quoted {formatRatePct(quotedMonthlyRatePct)} per month simply
+          spreads the total interest across the <em>original</em> amount and the
+          full term. The effective rate prices when each peso is actually repaid
+          — and any fee taken out before the cash reaches you.
         </p>
       )}
 

@@ -92,7 +92,6 @@ describe("computeDisclosure", () => {
     expect(Number.isFinite(d.effectiveAnnualRatePct)).toBe(true);
     expect(d.effectiveAnnualRatePct).toBeGreaterThan(100);
   });
-});
 
   it("resolves a rate on the most predatory terms rather than giving up", () => {
     // Borrow ₱1,000, repay ₱11,000 over a week. This needs a daily rate far
@@ -133,6 +132,7 @@ describe("computeDisclosure", () => {
     // The money figures stay meaningful even when the rate cannot be solved.
     expect(d.financeCharge).toBe(300_000);
   });
+});
 
 describe("formatRatePct", () => {
   it("keeps two decimals under 100% and drops them above", () => {
