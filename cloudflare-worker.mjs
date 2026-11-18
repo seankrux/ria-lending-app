@@ -4,7 +4,9 @@ import yogaModule from "./worker/yoga.wasm";
 
 globalThis.__RIA_YOGA_MODULE__ = yogaModule;
 
-export default {
+const worker = {
   fetch: handler.fetch,
   scheduled: (_event, env, ctx) => scheduledPenalties(handler.fetch, env, ctx),
 };
+
+export default worker;

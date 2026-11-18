@@ -2,11 +2,11 @@ import loadYogaImpl from "../node_modules/yoga-layout/dist/binaries/yoga-wasm-ba
 import wrapAssembly from "../node_modules/yoga-layout/dist/src/wrapAssembly.js";
 
 export async function loadYoga() {
-  const module = (globalThis as typeof globalThis & { __RIA_YOGA_MODULE__?: WebAssembly.Module }).__RIA_YOGA_MODULE__;
-  const options = module ? {
+  const yogaWasm = (globalThis as typeof globalThis & { __RIA_YOGA_MODULE__?: WebAssembly.Module }).__RIA_YOGA_MODULE__;
+  const options = yogaWasm ? {
     instantiateWasm(imports: WebAssembly.Imports, receive: (instance: WebAssembly.Instance, module: WebAssembly.Module) => void) {
-      const instance = new WebAssembly.Instance(module, imports);
-      receive(instance, module);
+      const instance = new WebAssembly.Instance(yogaWasm, imports);
+      receive(instance, yogaWasm);
       return instance.exports;
     },
   } : undefined;

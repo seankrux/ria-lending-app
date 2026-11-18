@@ -1,4 +1,4 @@
-export default {
+const worker = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (!["127.0.0.1", "localhost"].includes(url.hostname)) {
@@ -32,3 +32,5 @@ export default {
     return handler.fetch(request, env, ctx);
   },
 };
+
+export default worker;
