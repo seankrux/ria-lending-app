@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "seankrux-ria-lending-app",
+  "account_id": "7a7a08127b6d6744c838413b4473ecf1",
+  "main": "cloudflare-worker.mjs",
+  "compatibility_date": "2026-11-18",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": true,
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "triggers": { "crons": ["0 17 * * *"] },
+  "observability": { "enabled": true }
+}

@@ -4,5 +4,8 @@
       "path": "/api/cron/penalties",
       "schedule": "0 17 * * *"
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": false
+  }
 }

@@ -1,0 +1,8 @@
+{
+  "name": "ria-local-pdf-verification",
+  "main": "worker-pdf.mjs",
+  "compatibility_date": "2026-11-18",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": false,
+  "assets": { "directory": "../.open-next/assets", "binding": "ASSETS" }
+}

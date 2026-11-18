@@ -1,12 +1,14 @@
 import type { NextConfig } from "next";
+import path from "node:path";
 
 const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
+    resolveAlias: { "yoga-layout/load": "./worker/yoga-loader.ts" },
   },
-  // Ensure the PDF fonts ship with the serverless function on Vercel
-  outputFileTracingIncludes: {
-    "/api/loans/[id]/agreement": ["./public/fonts/**"],
+  webpack(config) {
+    config.resolve.alias["yoga-layout/load"] = path.resolve(__dirname, "worker/yoga-loader.ts");
+    return config;
   },
 };
 

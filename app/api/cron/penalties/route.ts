@@ -17,7 +17,7 @@ const PERIOD_DAYS: Record<string, number> = {
 };
 
 /**
- * Daily sweep (Vercel Cron, 01:00 Manila): assess a penalty on every open
+ * Daily sweep (Cloudflare Cron, 01:00 Manila): assess a penalty on every open
  * schedule item past its grace period — once when it first crosses grace,
  * then once per further full payment-period unpaid. Deterministic assessment
  * dates + the (schedule_item_id, assessed_on) unique constraint make re-runs
@@ -25,7 +25,7 @@ const PERIOD_DAYS: Record<string, number> = {
  */
 export async function GET(request: NextRequest) {
   const auth = request.headers.get("authorization");
-  if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!process.env.CRON_SECRET || auth !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 

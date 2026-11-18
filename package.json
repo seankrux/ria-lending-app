@@ -9,7 +9,11 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "build:cloudflare": "node scripts/prepare-yoga.mjs && opennextjs-cloudflare build",
+    "deploy:cloudflare": "wrangler deploy",
+    "preview:cloudflare": "opennextjs-cloudflare build && wrangler dev",
+    "verify:worker-pdf": "node scripts/verify-worker-pdf.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.5.1",
@@ -17,9 +21,9 @@
     "@supabase/supabase-js": "^2.112.0",
     "bcryptjs": "^3.0.3",
     "jose": "^6.2.7",
-    "next": "16.2.12",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "server-only": "^0.0.1"
   },
   "devDependencies": {
@@ -29,9 +33,12 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.12",
+    "eslint-config-next": "16.4.6",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "@opennextjs/cloudflare": "1.20.17",
+    "rclone.js": "0.6.6",
+    "wrangler": "4.164.0"
   }
 }
