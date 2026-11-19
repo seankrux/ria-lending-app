@@ -1,12 +1,15 @@
 import type { NextConfig } from "next";
+import path from "node:path";
 
 const nextConfig: NextConfig = {
+  transpilePackages: ["@react-pdf/renderer"],
   turbopack: {
     root: __dirname,
+    resolveAlias: { "@react-pdf/renderer": "./worker/react-pdf.cjs" },
   },
-  // Ensure the PDF fonts ship with the serverless function on Vercel
-  outputFileTracingIncludes: {
-    "/api/loans/[id]/agreement": ["./public/fonts/**"],
+  webpack(config) {
+    config.resolve.alias["@react-pdf/renderer"] = path.resolve(__dirname, "worker/react-pdf.cjs");
+    return config;
   },
 };
 

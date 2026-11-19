@@ -1,6 +1,6 @@
 # RIA Lending App
 
-Loan management for Philippine lending companies. Built with **Next.js (App Router)**, **Supabase** (Postgres + Auth + RLS), and deployed on **Vercel**.
+Loan management for Philippine lending companies. Built with **Next.js (App Router)**, **Supabase** (Postgres + Auth + RLS), and deployed on Sean's personal **Cloudflare Workers** account using OpenNext.
 
 ## Features
 
@@ -27,7 +27,7 @@ All money is handled as **integer centavos** (no floating-point drift), and all 
 | Debtor auth | Phone + bcrypt access code → signed JWT cookie |
 | PDF | @react-pdf/renderer (Node runtime) |
 | Tests | Vitest (interest engine, dates, allocation) |
-| Hosting | Vercel (with daily penalty cron) |
+| Hosting | Cloudflare Workers (with daily penalty cron) |
 
 ## Getting started
 
@@ -61,12 +61,11 @@ npm run dev    # http://localhost:3000
 npm test       # interest engine + allocation test suite
 ```
 
-## Deploying to Vercel
+## Deploying to Cloudflare
 
-1. Push this repo to GitHub and import it at [vercel.com/new](https://vercel.com/new).
-2. Add the five environment variables from `.env.example` in **Project → Settings → Environment Variables**.
-3. `vercel.json` already schedules the penalty cron daily at **01:00 Manila** (`0 17 * * *` UTC). Vercel calls it with `Authorization: Bearer $CRON_SECRET`.
-4. Every push to `main` auto-deploys.
+Follow [DEPLOYMENT.md](DEPLOYMENT.md) for repository secrets, the OpenNext build and the GitHub Actions deployment. Production uses the original Supabase project `lvdnmmfofnzatxckbtnr`; preserve that database when moving the app.
+
+The Cloudflare Cron Trigger preserves the daily penalty schedule at **01:00 Manila** (`0 17 * * *` UTC) and calls the existing protected handler with the configured cron key. A trusted `main` push deploys after the validation and Worker PDF checks pass.
 
 ## Architecture notes
 

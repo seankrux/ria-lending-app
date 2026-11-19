@@ -1,17 +1,26 @@
-import path from "path";
 import { Document, Font, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import { formatPeso } from "@/lib/interest/money";
 import { formatLongDate } from "@/lib/tz";
 import { amountInWords } from "./amount-words";
 
-const fontsDir = path.join(process.cwd(), "public", "fonts");
-Font.register({
-  family: "Noto Sans",
-  fonts: [
-    { src: path.join(fontsDir, "NotoSans-Regular.ttf"), fontWeight: "normal" },
-    { src: path.join(fontsDir, "NotoSans-Bold.ttf"), fontWeight: "bold" },
-  ],
-});
+export async function registerAgreementFonts(origin: string) {
+  const load = async (filename: string) => {
+    const response = await fetch(new URL(`/fonts/${filename}`, origin));
+    if (!response.ok) throw new Error(`Agreement font returned HTTP ${response.status}`);
+    return `data:font/ttf;base64,${Buffer.from(await response.arrayBuffer()).toString("base64")}`;
+  };
+  const [regular, bold] = await Promise.all([
+    load("NotoSans-Regular.ttf"),
+    load("NotoSans-Bold.ttf"),
+  ]);
+  Font.register({
+    family: "Noto Sans",
+    fonts: [
+      { src: regular, fontWeight: "normal" },
+      { src: bold, fontWeight: "bold" },
+    ],
+  });
+}
 
 const styles = StyleSheet.create({
   page: { fontFamily: "Noto Sans", fontSize: 9, padding: 42, lineHeight: 1.5 },

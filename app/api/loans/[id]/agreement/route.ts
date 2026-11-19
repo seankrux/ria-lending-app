@@ -2,13 +2,13 @@ import { createElement, type ReactElement } from "react";
 import { NextRequest, NextResponse } from "next/server";
 import { renderToBuffer, type DocumentProps } from "@react-pdf/renderer";
 import { createClient } from "@/lib/supabase/server";
-import { AgreementDocument } from "@/lib/pdf/AgreementDocument";
+import { AgreementDocument, registerAgreementFonts } from "@/lib/pdf/AgreementDocument";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
@@ -32,6 +32,7 @@ export async function GET(
     .eq("loan_id", id)
     .order("seq");
 
+  await registerAgreementFonts(request.nextUrl.origin);
   const pdf = await renderToBuffer(
     createElement(AgreementDocument, {
       company,
