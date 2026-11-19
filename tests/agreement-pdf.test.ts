@@ -11,7 +11,14 @@ it("renders the original agreement with fonts fetched as public assets", async (
     const bytes = await readFile(new URL(`../public${input.pathname}`, import.meta.url));
     return new Response(new Uint8Array(bytes));
   });
-  vi.stubGlobal("fetch", fetchFont);
+  const nativeFetch = globalThis.fetch;
+  vi.stubGlobal("fetch", (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = new URL(input instanceof Request ? input.url : String(input));
+    // Node's Yoga loader reads its embedded WASM through a data URL.
+    if (url.protocol === "data:") return nativeFetch(input, init);
+    expect(url.origin).toBe("https://lending.example.com");
+    return fetchFont(url);
+  });
   await registerAgreementFonts("https://lending.example.com");
   const agreement: AgreementProps = {
     company: { company_name: "PDF Test Company", address: "Manila" },
