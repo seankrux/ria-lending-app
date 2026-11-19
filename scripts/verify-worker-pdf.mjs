@@ -28,6 +28,7 @@ try {
   const response = await fetch(`${base}/api/loans/pdf-test/agreement`, { headers: { cookie: `sb-${ref}-auth-token=base64-${encode(session)}` }, signal: AbortSignal.timeout(60000) });
   const bytes = Buffer.from(await response.arrayBuffer());
   if (response.status !== 200 || !response.headers.get("content-type")?.includes("application/pdf") || bytes.subarray(0, 5).toString() !== "%PDF-" || bytes.length < 5000) {
+    await setTimeout(1000);
     throw new Error(`Local Worker PDF failed: HTTP ${response.status}, ${bytes.subarray(0, 600).toString()}\n${output}`);
   }
   console.log(`Worker PDF route returned HTTP 200 and ${bytes.length} PDF bytes with isolated provider fixtures`);

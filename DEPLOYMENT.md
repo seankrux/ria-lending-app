@@ -8,4 +8,8 @@ The existing penalty handler runs at `17:00 UTC` (`01:00 Asia/Manila`) through a
 
 Yoga's original WASM bytes are extracted from the locked package and imported as a precompiled Worker module. The loader uses that module on Workers and the original loader during ordinary Node development. `verify:worker-pdf` exercises the built Next.js PDF endpoint in local workerd with isolated provider fixtures; the fixture wrapper is outside the production entry point and sends no database traffic.
 
+The preparation script also bundles the PDF renderer with its regular React runtime before Next compiles the route. This preserves the custom reconciler's React internals instead of resolving them to the React Server Component runtime. Both `npm run dev` and `npm run build` prepare this generated, ignored module. See the [React PDF compatibility notes](https://react-pdf.org/docs/v4/compatibility) and [Next server package bundling reference](https://nextjs.org/docs/app/api-reference/config/next-config-js/serverExternalPackages).
+
+The original Supabase service-role key has not been recovered from the previous provider. Borrower, penalty and administrator operations that require it stay unavailable until that exact project's server credential is supplied. Public pages and staff session checks use the original project's existing public URL and anon key.
+
 The Vercel project is retained with Git deployment disabled. Move a production domain only after the Cloudflare root, staff login, debtor login, calculator, font assets and protected-route checks pass against the actual database configuration.

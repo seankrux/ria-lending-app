@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/prepare-yoga.mjs && next dev",
+    "build": "node scripts/prepare-yoga.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
     "smoke": "node scripts/smoke.mjs",
-    "build:cloudflare": "node scripts/prepare-yoga.mjs && opennextjs-cloudflare build",
+    "build:cloudflare": "opennextjs-cloudflare build",
     "deploy:cloudflare": "wrangler deploy",
-    "preview:cloudflare": "opennextjs-cloudflare build && wrangler dev",
+    "preview:cloudflare": "npm run build:cloudflare && wrangler dev",
     "verify:worker-pdf": "node scripts/verify-worker-pdf.mjs"
   },
   "dependencies": {
@@ -39,6 +39,7 @@
     "vitest": "^4.1.10",
     "@opennextjs/cloudflare": "1.20.17",
     "rclone.js": "0.6.6",
-    "wrangler": "4.164.0"
+    "wrangler": "4.164.0",
+    "esbuild": "0.28.2"
   }
 }
