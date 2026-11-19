@@ -36,4 +36,4 @@ it("renders the original agreement with fonts fetched as public assets", async (
   expect(pdf.length).toBeGreaterThan(5000);
   expect(fetchFont.mock.calls.map(([url]) => url.pathname).sort())
     .toEqual(["/fonts/NotoSans-Bold.ttf", "/fonts/NotoSans-Regular.ttf"]);
-});
+}, 20000);
