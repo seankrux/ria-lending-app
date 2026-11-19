@@ -1,3 +1,5 @@
+const nativeFetch = globalThis.fetch.bind(globalThis);
+
 const worker = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -6,6 +8,7 @@ const worker = {
     }
     globalThis.fetch = async (input) => {
       const target = new URL(typeof input === "string" || input instanceof URL ? input : input.url);
+      if (target.protocol === "data:" && target.pathname.startsWith("font/ttf;base64,")) return nativeFetch(input);
       if (target.pathname.startsWith("/fonts/")) return env.ASSETS.fetch(new Request(target));
       if (!target.hostname.endsWith(".supabase.co")) throw new Error("Unexpected outbound request in the local PDF test");
       if (target.pathname === "/auth/v1/user") {
